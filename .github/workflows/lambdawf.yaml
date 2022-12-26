@@ -1,11 +1,9 @@
 name: github-action-to-deploy-to-lambda
 
-#on:
- 
- #push:
-  
-  #branches: 
-   #  - main*
+on:
+ push: 
+  branches: 
+    - main*
 
 
 jobs:
@@ -13,7 +11,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-    
-    - name: Install depenedencies
+      uses: actions/checkout@v2.6.0 
+    - name: Setup python
+      uses: actions/setup-python@v4.4.0
+      with:
+        # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+         python-version: 3.8
+    - name: Install libraries
+      run: |
+         cd function
+         python -m pip install --upgrade pip
+         if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
+    - name: Create zip
+      run: |
+            cd function
+            zip -r ../${{ github.sha }}.zip .
+    - name: Archive artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: zipped-bundle
+          path: ${{ github.sha }}.zip
+      
     
 
