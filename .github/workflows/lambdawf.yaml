@@ -73,8 +73,27 @@ jobs:
        aws-region: us-east-1
     - name: Copy to S3
       run: aws s3 cp ${{ github.sha }}.zip s3://test-bucket-1130912830/${{ github.sha }}.zip
+  test:
+    needs: download
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Configure AWS Credentials" 
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+         aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: us-east-1
+    - name: "Deploy code to lambda"
+      run: |
+         aws lambda create-function --function-name my-new-function111 --role arn:aws:lambda:us-east-1:457335132494:function:test-lambda-gh
+         sleep 30
+    - name: Destroy env
+      if: ${{ always() }}
+      run: |
+          aws lambda delete-function --function-name my-new-function111
+     
   deploy:
-     needs: download
+     needs: test
      runs-on: ubuntu-latest
      steps:
      - name: "Configure AWS Credentials" 
