@@ -38,7 +38,7 @@ jobs:
          path: ${{ github.sha }}.zip
   download:
     needs: build
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps: 
     - name: Download artifact
       uses: actions/download-artifact@v3.0.1
