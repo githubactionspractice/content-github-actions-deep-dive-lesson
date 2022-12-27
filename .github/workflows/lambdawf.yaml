@@ -86,7 +86,7 @@ jobs:
     - name: "Deploy code to lambda"
       run: |
               aws lambda create-function --function-name test-function-1123 \
-              --code S3Bucket=test-bucket-1130912830,S3Key= ${{ github.sha }}.zip \
+              --code S3Bucket=test-bucket-1130912830,S3Key=${{ github.sha }}.zip \
               --handler lambda_function.lambda_handler --runtime python3.8 \
               --role arn:aws:lambda:us-east-1:457335132494:function:test-lambda-gh        
               sleep 30
