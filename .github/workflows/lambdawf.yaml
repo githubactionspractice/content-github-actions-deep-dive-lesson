@@ -35,6 +35,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
          name: zipped-bundle
+         path: ${{ github.sha }}.zip
   download:
     needs: build
     runs-on: ubuntu
