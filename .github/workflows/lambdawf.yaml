@@ -99,9 +99,7 @@ jobs:
               --output json out 
             if grep -q "Error" out; then
               exit1
-            fi
-    - name: "Sleep for some time"
-      run: sleep 30
+            fi   
     - name: Destroy env
       if: ${{ always() }}
       run: |
