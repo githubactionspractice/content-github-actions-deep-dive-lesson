@@ -1,4 +1,4 @@
-name: github-action-to-deploy-to-lambda
+name: manual-github-action-to-deploy-to-lambda
 
 on: workflow_dispatch
 
