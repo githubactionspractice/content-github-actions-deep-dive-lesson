@@ -3,7 +3,7 @@ name: github-action-to-deploy-to-lambda
 on: 
  push:
    branches:
-   - main*
+    - main*
 
 
 jobs:
@@ -108,7 +108,7 @@ jobs:
           aws lambda delete-function --function-name test-function-${{ matrix.input }}
      
   deploy:
-     needs: test
+     needs: nonprod
      runs-on: ubuntu-latest
      steps:
      - name: "Configure AWS Credentials" 
