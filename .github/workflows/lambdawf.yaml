@@ -103,7 +103,7 @@ jobs:
     - name: Destroy env
       if: ${{ always() }}
       run: |
-          aws lambda delete-function --function-name my-new-function111
+          aws lambda delete-function --function-name test-function-${{ matrix.input }}
      
   deploy:
      needs: test
