@@ -1,6 +1,9 @@
 name: github-action-to-deploy-to-lambda
 
-on: workflow_dispatch
+on: 
+ push:
+   branches:
+      main*
 
 
 jobs:
