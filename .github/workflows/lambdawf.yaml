@@ -92,6 +92,8 @@ jobs:
               --code S3Bucket=test-bucket-1130912830,S3Key=${{ github.sha }}.zip \
               --handler lambda_function.lambda_handler --runtime python3.8 \
               --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/service-role/helloworld-role-6hf3jd6t       
+    - name: Wait for some time
+      run: sleep 15
     - name: Invoke test function 
       run: |
             aws lambda invoke --function-name test-function-${{ matrix.input }} \
@@ -100,6 +102,8 @@ jobs:
             if grep -q "Error" out; then
               exit1
             fi   
+    - name: Wait for some time
+      run: sleep 15
     - name: Destroy env
       if: ${{ always() }}
       run: |
